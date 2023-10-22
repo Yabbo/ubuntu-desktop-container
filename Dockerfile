@@ -31,9 +31,15 @@ RUN ./install.sh -y
 
 # Add Starship to bashrc
 RUN echo 'eval "$(starship init bash)"' >> .bashrc
+RUN echo 'eval "$(starship init bash)"' >> /home/kasm-user/.bashrc
+RUN chown kasm-user:kasm-user /home/kasm-user/.bashrc
+
 
 # Add Starship Theme
 COPY config/starship.toml .config/starship.toml
+COPY config/starship.toml /home/kasm-user/.config/starship.toml
+RUN chown kasm-user:kasm-user /home/kasm-user/.config/starship.toml
+
 
 # Install Hack Nerd Font
 RUN wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
@@ -46,12 +52,20 @@ RUN apt -y install terminator
 RUN mkdir .config/terminator
 COPY config/terminator.toml .config/terminator/config
 
+RUN mkdir /home/kasm-user/.config/terminator
+COPY config/terminator.toml /home/kasm-user/.config/terminator/config
+RUN chown -R kasm-user:kasm-user /home/kasm-user/.config/*
+
 # Install XFCE Dark Theme
 RUN apt install numix-gtk-theme
 
 # Clean up 
 Run rm Hack.zip
 Run rm install.sh
+
+# Add kasm-user to sudoers with no password
+RUN echo "kasm-user ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
+
 
 
 ######### End Customizations ###########
