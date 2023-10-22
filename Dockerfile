@@ -66,6 +66,8 @@ Run rm install.sh
 # Add kasm-user to sudoers with no password
 RUN echo "kasm-user ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
 
+# Set kasm-user default shell to bash
+RUN chsh -s /bin/bash kasm-user
 
 
 ######### End Customizations ###########
