@@ -49,6 +49,10 @@ COPY config/terminator.toml .config/terminator/config
 # Install XFCE Dark Theme
 RUN apt install numix-gtk-theme
 
+# Clean up 
+Run rm Hack.zip
+Run rm install.sh
+
 
 ######### End Customizations ###########
 
