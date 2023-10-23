@@ -9,7 +9,7 @@ WORKDIR $HOME
 ######### Customize Container Here ###########
 
 
-#RUN touch $HOME/Desktop/hello.txt
+#RUN commands 
 RUN apt update
 RUN apt upgrade -y
 RUN apt -y install openvpn
