@@ -23,6 +23,8 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 RUN chmod +x kubectl
 RUN mv kubectl /usr/local/bin/.
 
+# Install AWS CLI 
+RUN apt -y install awscli
 
 # Install Starship
 RUN wget https://starship.rs/install.sh
