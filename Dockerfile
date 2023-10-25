@@ -2,6 +2,7 @@ FROM kasmweb/ubuntu-jammy-desktop:1.14.0
 USER root
 
 ENV HOME /home/kasm-default-profile
+#ENV HOME /home/kasm-user
 ENV STARTUPDIR /dockerstartup
 ENV INST_SCRIPTS $STARTUPDIR/install
 WORKDIR $HOME
@@ -19,11 +20,13 @@ RUN apt -y install unzip
 COPY assets/mr-robot-wallpaper.png  /usr/share/extra/backgrounds/bg_default.png
 
 # Install mm tool (MixMode CLI tool)
-COPY assets/mixmode-api-client.zip /home/kasm-user/mixmode-api-client.zip
-RUN unzip /home/kasm-user/mixmode-api-client.zip -d /
+COPY assets/mixmode-api-client.zip ./mixmode-api-client.zip
+RUN unzip mixmode-api-client.zip
 RUN apt install python3
 RUN ln -s /usr/bin/python3 /usr/bin/python
-RUN cp /tmp/mm-client-files/mm.sh /usr/local/bin/mm
+RUN mv tmp/* ~/. 
+#RUN cp ./tmp/mm-client-files/mm.sh /usr/local/bin/mm
+
 
 # Install kubectl 
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
