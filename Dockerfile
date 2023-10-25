@@ -18,6 +18,13 @@ RUN apt -y install unzip
 # Change Background to sth cool
 COPY assets/mr-robot-wallpaper.png  /usr/share/extra/backgrounds/bg_default.png
 
+# Install mm tool (MixMode CLI tool)
+COPY assets/mixmode-api-client.zip /home/kasm-user/mixmode-api-client.zip
+RUN unzip /home/kasm-user/mixmode-api-client.zip
+RUN apt install python3
+RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN /home/kasm-user/tmp/mm-client-files/./install.sh
+
 # Install kubectl 
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 RUN chmod +x kubectl
