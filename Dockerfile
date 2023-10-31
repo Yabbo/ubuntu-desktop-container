@@ -15,6 +15,8 @@ RUN apt update
 RUN apt upgrade -y
 RUN apt -y install openvpn
 RUN apt -y install unzip
+RUN apt -y install cargo
+RUN cargo install lsd --locked
 
 # Change Background to sth cool
 COPY assets/mr-robot-wallpaper.png  /usr/share/extra/backgrounds/bg_default.png
@@ -41,10 +43,13 @@ RUN wget https://starship.rs/install.sh
 RUN chmod +x install.sh
 RUN ./install.sh -y
 
-# Add Starship to bashrc
+# Add configs to bashrc
 RUN echo 'eval "$(starship init bash)"' >> .bashrc
 RUN echo 'eval "$(starship init bash)"' >> /home/kasm-user/.bashrc
 RUN chown kasm-user:kasm-user /home/kasm-user/.bashrc
+RUN echo 'PATH="/home/kasm-user/.cargo/bin:$PATH"' >> .bashrc
+RUN echo 'alias ls="lsd"' >> .bashrc
+RUN echo 'alias ll="lsd -lg"' >> .bashrc
 
 
 # Add Starship Theme
